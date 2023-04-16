@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Word List from Text</title>
+</head>
+<body>
+  <h1>Create Word List from Text</h1>
+  <p>Paste text here:</p>
+  <input type="text" id="inputText">
+  <button onclick="processText()">Proceed</button>
+  <ul id="wordList"></ul>
+
+  <script>
+    function processText() {
+      // Step 1: Get input text from the input field
+      var inputText = document.getElementById('inputText').value;
+
+      // Step 2: Extract all words from the input text
+      var words = inputText.split(/\W+/); // Split by non-word characters
+
+      // Step 3: Sort the words in alphabetical order
+      words.sort();
+
+      // Step 4: Remove duplicates from the words array
+      var uniqueWords = [...new Set(words)];
+
+      // Step 5: Filter out words that are less than 3 characters long
+      var filteredWords = uniqueWords.filter(function(word) {
+        return word.length >= 3;
+      });
+
+      // Step 6: Display the list of words in a column
+      var wordListElement = document.getElementById('wordList');
+      wordListElement.innerHTML = ''; // Clear previous list
+
+      // Create a list item for each filtered word and append to the list
+      filteredWords.forEach(function(word) {
+        var li = document.createElement('li');
+        var textNode = document.createTextNode(word);
+        li.appendChild(textNode);
+        wordListElement.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
